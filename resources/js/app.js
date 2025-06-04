@@ -6,7 +6,7 @@ import './bootstrap'; // Contains Axios setup etc.
 import Alpine from 'alpinejs';
 
 // Import Livewire and its Alpine.js integration
-import { Livewire, Alpine as LivewireAlpine } from 'livewire';
+// import { Livewire, Alpine as LivewireAlpine } from 'livewire';
 
 // Make Alpine.js globally available on the window object
 window.Alpine = Alpine;
