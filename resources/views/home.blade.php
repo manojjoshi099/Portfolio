@@ -5,7 +5,7 @@
 
 @section('content')
     <section id="hero" class="text-center py-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-xl mb-12">
-        <h1 class="text-5xl font-extrabold mb-4 animate-fade-in-down">Hi, I'm Your Name</h1>
+        <h1 class="text-5xl font-extrabold mb-4 animate-fade-in-down">Hi, I'm Manoj Kumar Joshi</h1>
         <p class="text-xl mb-6 animate-fade-in-up">A passionate Web Developer focused on building amazing digital experiences with Laravel.</p>
         <a href="{{ route('contact.index') }}" class="bg-white text-blue-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-100 transition duration-300 shadow-lg">Get in Touch</a>
     </section>
