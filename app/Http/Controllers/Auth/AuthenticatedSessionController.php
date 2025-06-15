@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Providers\RouteServiceProvider; // Keep this if it's there
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // --- NEW REDIRECT LOGIC ---
+        // Redirect to the admin dashboard after successful login
+        return redirect()->intended(route('admin.dashboard'));
+        // --- END NEW REDIRECT LOGIC ---
+
+        // You can remove or comment out the original redirect line if it exists
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

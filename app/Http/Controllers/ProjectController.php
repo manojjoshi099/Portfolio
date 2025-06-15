@@ -7,15 +7,26 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    /**
+     * Display a listing of the projects.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
-        // This controller method serves the page that will host the Livewire component.
-        // The Livewire component will handle fetching and filtering projects.
-        return view('projects.index');
+        // Order by 'order' if you want custom ordering, otherwise by 'created_at' or 'title'
+        $projects = Project::orderBy('order')->orderBy('created_at', 'desc')->paginate(9);
+        return view('projects.index', compact('projects'));
     }
-    public function show(Project $project) // Laravel's Route Model Binding
+
+    /**
+     * Display the specified project.
+     *
+     * @param  \App\Models\Project  $project (Laravel's Route Model Binding will find by slug)
+     * @return \Illuminate\View\View
+     */
+    public function show(Project $project)
     {
-        // The controller fetches the specific project based on the slug.
         return view('projects.show', compact('project'));
     }
 }

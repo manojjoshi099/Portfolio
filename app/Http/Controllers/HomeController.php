@@ -9,11 +9,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $aboutMe = AboutMes::first(); // Fetch the single AboutMe record
+        $aboutMe = AboutMes::first(); // Your existing AboutMe data
         $featuredProjects = Project::where('is_featured', true)
-            ->orderBy('order')
-            ->limit(3) // Display up to 3 featured projects
+            ->orderBy('order') // Order by custom order if set
+            ->orderBy('created_at', 'desc')
+            ->limit(3) // Show only 3 featured projects
             ->get();
+
         return view('home', compact('aboutMe', 'featuredProjects'));
     }
 }

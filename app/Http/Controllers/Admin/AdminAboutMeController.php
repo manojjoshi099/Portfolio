@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AboutMe;
+use App\Models\AboutMes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,10 +14,10 @@ class AdminAboutMeController extends Controller
      */
     public function edit()
     {
-        $aboutMe = AboutMe::first(); // There should only be one record
+        $aboutMe = AboutMes::first(); // There should only be one record
         if (!$aboutMe) {
             // Create a new empty record if none exists
-            $aboutMe = AboutMe::create([
+            $aboutMe = AboutMes::create([
                 'title' => 'Your Name - Web Developer',
                 'content' => 'Write a short introduction about yourself here.',
             ]);
@@ -30,7 +30,7 @@ class AdminAboutMeController extends Controller
      */
     public function update(Request $request)
     {
-        $aboutMe = AboutMe::first();
+        $aboutMe = AboutMes::first();
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',

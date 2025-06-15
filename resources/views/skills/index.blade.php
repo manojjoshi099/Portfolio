@@ -1,4 +1,5 @@
-@extends('layouts.app')
+
+@extends('layouts.public')
 
 @section('title', 'My Skills - Your Name')
 @section('description', 'A detailed list of Your Name\'s technical skills in web development, including backend, frontend, and tools.')

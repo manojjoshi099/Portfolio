@@ -1,77 +1,67 @@
-@extends('layouts.app')
+{{-- resources/views/projects/show.blade.php --}}
+@extends('layouts.public') {{-- Your public layout --}}
 
-{{-- Dynamically set the page title based on the project title --}}
-@section('title', $project->title . ' - Your Name\'s Portfolio')
-
-{{-- Dynamically set the meta description from the project's short description --}}
-@section('description', Str::limit($project->short_description, 160))
+@section('title', $project->title)
 
 @section('content')
-    <article class="bg-white p-8 rounded-lg shadow-lg max-w-5xl mx-auto">
-        {{-- Back button --}}
-        <div class="mb-6">
-            <a href="{{ route('projects.index') }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition duration-300">
-                <i class="fas fa-arrow-left mr-2"></i> Back to Projects
-            </a>
-        </div>
-
-        {{-- Project Title --}}
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ $project->title }}</h1>
-
-        {{-- Technologies Used --}}
-        @if($project->technologies)
-            <div class="flex flex-wrap gap-2 mb-6">
-                @foreach($project->technologies as $tech)
-                    <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full shadow-sm">
-                        {{ $tech }}
-                    </span>
-                @endforeach
-            </div>
-        @endif
-
-        {{-- Featured Image --}}
-        @if($project->featured_image)
-            <figure class="mb-8">
-                <img src="{{ asset('storage/' . $project->featured_image) }}" alt="{{ $project->title }}" class="w-full h-96 object-cover rounded-lg shadow-md border border-gray-200">
-                <figcaption class="text-center text-gray-500 text-sm mt-2">Main project image</figcaption>
-            </figure>
-        @else
-            <div class="w-full h-96 bg-gray-200 flex items-center justify-center text-gray-500 text-xl rounded-lg shadow-md mb-8">
-                No featured image available
-            </div>
-        @endif
-
-        {{-- Long Description --}}
-        <div class="prose max-w-none text-gray-700 leading-relaxed mb-8">
-            {{-- Use {!! !!} to render rich text (HTML) from the database --}}
-            {!! $project->long_description !!}
-        </div>
-
-        {{-- Additional Screenshots --}}
-        @if($project->screenshots && count($project->screenshots) > 0)
-            <h3 class="text-3xl font-semibold text-gray-900 mb-6 border-b pb-2">Screenshots</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                @foreach($project->screenshots as $screenshot)
-                    <figure class="bg-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                        <img src="{{ asset('storage/' . $screenshot) }}" alt="{{ $project->title }} Screenshot" class="w-full h-56 object-cover transform hover:scale-105 transition duration-300">
-                        <figcaption class="p-3 text-center text-gray-600 text-sm">{{ Str::afterLast($screenshot, '/') }}</figcaption>
-                    </figure>
-                @endforeach
-            </div>
-        @endif
-
-        {{-- Project Links --}}
-        <div class="flex flex-wrap justify-center gap-6 mt-8">
-            @if($project->live_url)
-                <a href="{{ $project->live_url }}" target="_blank" rel="noopener noreferrer" class="px-8 py-3 bg-green-600 text-white rounded-full text-lg font-semibold hover:bg-green-700 transition duration-300 shadow-lg flex items-center">
-                    <i class="fas fa-external-link-alt mr-2"></i> Live Demo
-                </a>
+    <section class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+            @if($project->featured_image)
+                {{-- Use getFeaturedImageUrlAttribute from model --}}
+                <img src="{{ $project->featured_image_url }}" alt="{{ $project->title }}" class="w-full h-80 object-cover">
+            @else
+                <div class="w-full h-80 bg-gray-200 flex items-center justify-center text-gray-500 text-2xl font-bold">No Image Available</div>
             @endif
-            @if($project->github_url)
-                <a href="{{ $project->github_url }}" target="_blank" rel="noopener noreferrer" class="px-8 py-3 bg-gray-800 text-white rounded-full text-lg font-semibold hover:bg-gray-900 transition duration-300 shadow-lg flex items-center">
-                    <i class="fab fa-github mr-2"></i> GitHub Repo
-                </a>
-            @endif
+
+            <div class="p-8">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">{{ $project->title }}</h1>
+                @if($project->short_description)
+                    <p class="text-xl text-gray-600 mb-6">{{ $project->short_description }}</p>
+                @endif
+
+                @if($project->technologies)
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        @foreach($project->technologies as $tech)
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">{{ $tech }}</span>
+                        @endforeach
+                    </div>
+                @endif
+
+                <div class="prose max-w-none text-gray-700 leading-relaxed mb-8">
+                    {{-- Use long_description --}}
+                    {!! nl2br(e($project->long_description)) !!}
+                </div>
+
+                @if($project->screenshots && count($project->screenshots) > 0)
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Screenshots</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                        @foreach($project->screenshot_urls as $screenshotUrl)
+                            <img src="{{ $screenshotUrl }}" alt="{{ $project->title }} screenshot" class="w-full h-48 object-cover rounded-lg shadow-sm">
+                        @endforeach
+                    </div>
+                @endif
+
+                <div class="flex flex-wrap gap-4 items-center">
+                    @if($project->live_url)
+                        <a href="{{ $project->live_url }}" target="_blank" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            Live Demo
+                        </a>
+                    @endif
+                    @if($project->github_url)
+                        <a href="{{ $project->github_url }}" target="_blank" class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.086 1.838 1.238 1.838 1.238 1.07 1.835 2.809 1.305 3.493.998.108-.77.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.196-6.091 8.196-11.385 0-6.627-5.373-12-12-12z"></path></svg>
+                            GitHub
+                        </a>
+                    @endif
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="{{ route('projects.index') }}" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center">
+                        &larr; Back to All Projects
+                    </a>
+                </div>
+            </div>
         </div>
-    </article>
+    </section>
 @endsection

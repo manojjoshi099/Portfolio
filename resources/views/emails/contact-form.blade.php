@@ -1,17 +1,19 @@
-{{-- resources/views/emails/contact-form.blade.php --}}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>New Contact Message</title>
-</head>
-<body>
-    <h1>New Contact Message from your Portfolio</h1>
-    <p><strong>Name:</strong> {{ $name }}</p>
-    <p><strong>Email:</strong> {{ $email }}</p>
-    @if(isset($subject) && $subject)
-        <p><strong>Subject:</strong> {{ $subject }}</p>
-    @endif
-    <p><strong>Message:</strong></p>
-    <p>{!! nl2br(e($message)) !!}</p> {{-- nl2br preserves newlines, e for escaping HTML --}}
-</body>
-</html>
+<x-mail::message>
+# New Contact Message
+
+You have received a new message from your portfolio contact form.
+
+**From:** {{ $name }}
+**Email:** {{ $email }}
+**Subject:** {{ $subject_line }}
+
+**Message:**
+{{ $message_body }}
+
+<x-mail::button :url="route('admin.contact-messages.index')">
+View in Admin Panel
+</x-mail::button>
+
+Thanks,<br>
+{{ config('app.name') }}
+</x-mail::message>

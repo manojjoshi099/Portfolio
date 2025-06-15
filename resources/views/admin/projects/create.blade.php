@@ -32,7 +32,8 @@
                 </div>
                 <div>
                     <label for="technologies" class="block font-medium text-sm text-gray-700">Technologies (comma-separated)</label>
-                    <input type="text" name="technologies" id="technologies" class="form-input mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('technologies') }}" placeholder="e.g., Laravel, Vue.js, Tailwind CSS">
+                    {{-- <input type="text" name="technologies" id="technologies" class="form-input mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('technologies') }}" placeholder="e.g., Laravel, Vue.js, Tailwind CSS"> --}}
+                    <input type="text" name="technologies" id="technologies" class="form-input mt-1 block w-full rounded-md shadow-sm border-gray-300" value="{{ old('technologies', isset($project) ? implode(', ', $project->technologies ?? []) : '') }}" placeholder="e.g., Laravel, Vue.js, Tailwind CSS">
                     @error('technologies')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
                 </div>
                 <div>

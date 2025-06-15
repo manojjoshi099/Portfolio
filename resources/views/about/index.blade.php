@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.public')
 
 @section('title', 'About Me - Your Name')
 @section('description', 'Learn more about Your Name, a web developer specializing in Laravel and modern web technologies.')
