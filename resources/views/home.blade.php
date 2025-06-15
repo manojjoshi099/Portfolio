@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Your Name - Web Developer Portfolio')
+@section('title', 'Manoj Kumar Joshi - Web Developer Portfolio')
 @section('description', 'Showcasing web development projects and skills in Laravel, Vue.js, and more.')
 
 @section('content')

@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\AboutMes;
+
 class AboutController extends Controller
 {
     public function index()
