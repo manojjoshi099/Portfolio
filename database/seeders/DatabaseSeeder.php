@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class,
             ProjectSeeder::class,
             ContactMessageSeeder::class,
+            UserSeeder::class, // Ensure this is included to seed the user
             // Add other seeders if you create them later
         ]);
 

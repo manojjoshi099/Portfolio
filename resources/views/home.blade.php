@@ -24,9 +24,9 @@
                     </div>
                 @endif
                 <div>
-                    <h2 class="text-4xl font-bold mb-4 text-gray-900">{{ $aboutMe->title }}</h2>
+                    <h2 class="text-4xl font-bold mb-4 text-gray-900">{{ $aboutMe->name }}</h2>
                     <div class="prose max-w-none text-gray-700">
-                        {!! $aboutMe->content !!}
+                        {!! $aboutMe->bio !!}
                     </div>
                     @if ($aboutMe->cv_link)
                         <a href="{{ asset('storage/' . $aboutMe->cv_link) }}" target="_blank"
@@ -39,14 +39,13 @@
         </section>
     @endif
 
-    {{-- <section id="featured-projects" class="mb-12">
+    <section id="featured-projects" class="mb-12">
         <h2 class="text-4xl font-bold text-center mb-8 text-gray-900">Featured Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($featuredProjects as $project)
                 <x-project-card :project="$project" />
             @empty
-                <p class="col-span-full text-center text-gray-500">No featured projects available yet. Please add some from
-                    the admin panel!</p>
+                <p class="col-span-full text-center text-gray-500">No featured projects available yet.</p>
             @endforelse
         </div>
         <div class="text-center mt-12">
@@ -54,8 +53,8 @@
                 class="px-8 py-3 bg-purple-600 text-white rounded-full text-lg font-semibold hover:bg-purple-700 transition duration-300 shadow-lg">View
                 All Projects</a>
         </div>
-    </section> --}}
-    <section class="featured-projects-section container mx-auto px-4 py-12">
+    </section>
+    {{-- <section class="featured-projects-section container mx-auto px-4 py-12">
         <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">Featured Projects</h2>
         @if ($featuredProjects->isEmpty())
             <p class="text-center text-gray-500 text-lg">No featured projects available yet. Check back soon!</p>
@@ -76,7 +75,7 @@
                         <div class="p-6">
                             <h3 class="font-semibold text-xl text-gray-800 mb-2">{{ $project->title }}</h3>
                             <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ $project->short_description }}</p>
-                            {{-- Use short_description here --}}
+
 
                             @if ($project->technologies)
                                 <div class="flex flex-wrap gap-2 mb-4">
@@ -93,7 +92,7 @@
                                 @if ($project->github_url)
                                     <a href="{{ $project->github_url }}" target="_blank"
                                         class="text-gray-600 hover:text-gray-900" title="GitHub Repo">
-                                        {{-- GitHub icon SVG here (same as in projects/index.blade.php) --}}
+
                                         <svg class="w-5 h-5 inline-block align-middle" fill="currentColor"
                                             viewBox="0 0 24 24" aria-hidden="true">
                                             <path fill-rule="evenodd"
@@ -113,5 +112,5 @@
                 </a>
             </div>
         @endif
-    </section>
+    </section> --}}
 @endsection

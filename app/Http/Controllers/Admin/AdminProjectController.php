@@ -46,10 +46,12 @@ class AdminProjectController extends Controller
         ]);
 
         // Convert technologies string to array
-        if (!empty($validated['technologies'])) {
-            $validated['technologies'] = array_map('trim', explode(',', $validated['technologies']));
+        if (!empty($validatedData['technologies'])) {
+            // Convert the comma-separated string into an array
+            $validatedData['technologies'] = array_map('trim', explode(',', $validatedData['technologies']));
         } else {
-            $validated['technologies'] = null;
+            // If empty, save as null or an empty array []
+            $validatedData['technologies'] = null; // Or use [] for an empty array
         }
 
         // Handle featured_image upload
@@ -71,6 +73,7 @@ class AdminProjectController extends Controller
         $validated['order'] = $request->input('order', 0); // Default order to 0 if not provided
 
         $project = Project::create($validated);
+        $project->update($validatedData);
 
         return redirect()->route('admin.projects.index')->with('success', 'Project created successfully!');
     }

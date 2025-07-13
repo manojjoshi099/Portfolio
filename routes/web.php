@@ -31,7 +31,7 @@ Route::post('/contact', [ContactController::class, 'submit'])->name('contact.sub
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard'); // This is the default Breeze dashboard for logged-in users
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

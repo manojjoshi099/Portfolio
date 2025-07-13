@@ -1,4 +1,4 @@
-{{-- @extends('layouts.public')
+@extends('layouts.public')
 
 @section('title', 'My Projects')
 
@@ -55,4 +55,4 @@
             </div>
         @endif
     </section>
-@endsection --}}
+@endsection
